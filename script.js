@@ -160,6 +160,7 @@ function bindPasswordToggle(button, input) {
     if (toggleText) {
       toggleText.textContent = shouldShowPassword ? 'Hide' : 'Show';
     }
+    button.setAttribute('aria-label', shouldShowPassword ? 'Hide password' : 'Show password');
 
     if (shouldShowPassword) {
       requestAnimationFrame(() => {
@@ -746,6 +747,23 @@ function initializePhotoVault() {
     timeStyle: 'short'
   }).format(timestamp);
 
+  const relativeTimeFormatter = new Intl.RelativeTimeFormat(undefined, { numeric: 'always' });
+  const formatRelativeTime = (timestamp) => {
+    const elapsedSeconds = Math.max(0, (Date.now() - timestamp) / 1000);
+    if (elapsedSeconds < 60) return 'Just now';
+
+    const units = [
+      ['year', 365.25 * 24 * 60 * 60],
+      ['month', 30.44 * 24 * 60 * 60],
+      ['week', 7 * 24 * 60 * 60],
+      ['day', 24 * 60 * 60],
+      ['hour', 60 * 60],
+      ['minute', 60]
+    ];
+    const [unit, unitSeconds] = units.find(([, seconds]) => elapsedSeconds >= seconds);
+    return relativeTimeFormatter.format(-Math.floor(elapsedSeconds / unitSeconds), unit);
+  };
+
   const isVideoMemory = (memory) => memory.type.startsWith('video/') || /\.(mp4|webm)$/i.test(memory.name);
 
   const loadPhotos = async () => {
@@ -776,6 +794,14 @@ function initializePhotoVault() {
     const visibleVideos = visibleMemories.filter(isVideoMemory);
     const allPhotos = memories.filter((memory) => !isVideoMemory(memory));
     const allVideos = memories.filter(isVideoMemory);
+    const mediaNumbers = new Map();
+
+    [allPhotos, allVideos].forEach((collection) => {
+      collection
+        .slice()
+        .sort((first, second) => first.createdAt - second.createdAt || first.id.localeCompare(second.id))
+        .forEach((memory, index) => mediaNumbers.set(memory.id, index + 1));
+    });
 
     photoCount.textContent = memories.length;
     photosCount.textContent = allPhotos.length;
@@ -799,19 +825,22 @@ function initializePhotoVault() {
     if (status.textContent.startsWith('No memories match')) setStatus('');
 
     const createMediaTile = (photo, index) => {
+      const isVideo = isVideoMemory(photo);
+      const mediaNumber = mediaNumbers.get(photo.id);
+      const mediaTypeLabel = isVideo ? 'VIDEO' : 'PHOTO';
       const tile = document.createElement('button');
       tile.type = 'button';
       tile.className = 'photo-tile';
       tile.style.setProperty('--tile-index', index);
-      tile.setAttribute('aria-label', `View ${photo.name}`);
+      tile.setAttribute('aria-label', `View ${photo.name}, ${mediaTypeLabel.toLowerCase()} ${mediaNumber}`);
 
       const previewUrl = URL.createObjectURL(photo.blob);
       tileObjectUrls.push(previewUrl);
-      const media = document.createElement(isVideoMemory(photo) ? 'video' : 'img');
+      const media = document.createElement(isVideo ? 'video' : 'img');
       media.src = previewUrl;
       media.className = 'photo-tile-media';
 
-      if (isVideoMemory(photo)) {
+      if (isVideo) {
         media.muted = true;
         media.playsInline = true;
         media.preload = 'metadata';
@@ -831,16 +860,16 @@ function initializePhotoVault() {
       title.textContent = photo.name;
 
       const date = document.createElement('span');
-      date.textContent = formatDate(photo.createdAt);
+      date.className = 'photo-tile-time';
+      date.dataset.createdAt = photo.createdAt;
+      date.textContent = formatRelativeTime(photo.createdAt);
+      date.title = formatDate(photo.createdAt);
 
-      if (isVideoMemory(photo)) {
-        const videoBadge = document.createElement('span');
-        videoBadge.className = 'media-type-badge';
-        videoBadge.textContent = 'VIDEO';
-        tile.append(media, videoBadge, caption);
-      } else {
-        tile.append(media, caption);
-      }
+      const mediaBadge = document.createElement('span');
+      mediaBadge.className = 'media-type-badge';
+      mediaBadge.textContent = `${mediaTypeLabel} #${mediaNumber}`;
+      mediaBadge.setAttribute('aria-hidden', 'true');
+      tile.append(media, mediaBadge, caption);
 
       caption.append(title, date);
       tile.addEventListener('click', () => openPhoto(photo));
@@ -855,6 +884,12 @@ function initializePhotoVault() {
     visibleVideos.forEach((video, index) => videoFragment.append(createMediaTile(video, index)));
     videoGrid.append(videoFragment);
   };
+
+  window.setInterval(() => {
+    document.querySelectorAll('.photo-tile-time[data-created-at]').forEach((date) => {
+      date.textContent = formatRelativeTime(Number(date.dataset.createdAt));
+    });
+  }, 60000);
 
   const openPhoto = (photo) => {
     currentPhoto = photo;
