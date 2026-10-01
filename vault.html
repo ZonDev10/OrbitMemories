@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A personal photo archive among the stars." />
+    <title>Orbit Memories | Photo Archive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="vault-page" id="vaultPage">
+    <div class="vault-space" aria-hidden="true">
+      <div class="vault-nebula"></div>
+      <div class="vault-stars vault-stars-far"></div>
+      <div class="vault-stars vault-stars-near"></div>
+    </div>
+
+    <header class="vault-topbar">
+      <a class="vault-brand" href="#gallery" aria-label="Orbit Memories home">
+        <span class="vault-brand-mark" aria-hidden="true">O</span>
+        <span class="vault-brand-name">ORBIT <span>MEMORIES</span></span>
+      </a>
+
+      <div class="vault-account">
+        <div class="vault-avatar" id="accountAvatar" aria-hidden="true">N</div>
+        <div class="vault-account-copy">
+          <span class="vault-account-label">PERSONAL VAULT</span>
+          <strong id="accountName">Your archive</strong>
+        </div>
+        <div class="vault-account-actions">
+          <button class="vault-tutorial-button" id="openTutorial" type="button" title="How to use Orbit Memories" aria-label="Open the Orbit Memories tutorial">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M9.6 9a2.5 2.5 0 0 1 4.8.8c0 1.7-2.4 2.2-2.4 3.7m0 3h.01" /></svg>
+            <span>Tutorial</span>
+          </button>
+          <button class="vault-switch-account" id="switchAccountButton" type="button" title="Switch account" aria-label="Switch account">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m6-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm10-7v6m3-3h-6" /></svg>
+            <span>Switch account</span>
+          </button>
+          <button class="vault-logout" id="logoutButton" type="button" title="Sign out" aria-label="Sign out">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5M15 12H3m9-8h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6" /></svg>
+            <span class="logout-label">Sign out</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="vault-main">
+      <section class="vault-hero" aria-labelledby="vaultHeading">
+        <div class="vault-hero-copy">
+          <p class="vault-eyebrow"><span></span> YOUR QUIET CORNER OF THE UNIVERSE</p>
+          <h1 id="vaultHeading">Keep your moments<br /><span>among the stars.</span></h1>
+          <p class="vault-intro">A little universe for the images you want to keep close.</p>
+        </div>
+        <div class="vault-orbit" aria-hidden="true">
+          <span class="orbit-ring orbit-ring-one"></span>
+          <span class="orbit-ring orbit-ring-two"></span>
+          <span class="orbit-core"></span>
+          <span class="orbit-satellite"></span>
+        </div>
+      </section>
+
+      <section class="vault-gallery" id="gallery" aria-labelledby="galleryHeading">
+        <div class="gallery-heading-row">
+          <div>
+            <p class="vault-section-label">YOUR COLLECTION</p>
+            <h2 id="galleryHeading">All memories <span id="photoCount">0</span></h2>
+          </div>
+          <div class="vault-storage-note"><span class="storage-dot"></span> SAVED ON THIS DEVICE</div>
+        </div>
+
+        <div class="gallery-toolbar">
+          <label class="photo-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></svg>
+            <input id="photoSearch" type="search" aria-label="Search photos and videos" placeholder="Find a memory" autocomplete="off" />
+          </label>
+          <label class="sort-control">
+            <span>Sort</span>
+            <select id="photoSort" aria-label="Sort photos and videos">
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="name">Name</option>
+            </select>
+          </label>
+          <button class="vault-upload-button" id="uploadButton" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5" /></svg>
+            <span>Add media</span>
+          </button>
+          <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif,video/mp4,video/webm" multiple hidden />
+        </div>
+
+        <button class="vault-dropzone" id="uploadDropzone" type="button" aria-label="Choose photos and videos or drop media files here">
+          <span class="dropzone-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5" /></svg>
+          </span>
+          <span class="dropzone-copy"><strong>Bring photos and videos into orbit</strong><span>Drop media here or <u>browse your files</u></span></span>
+          <span class="dropzone-limit">JPG, PNG, WEBP, MP4, WEBM <i>·</i> PHOTOS 25 MB / VIDEOS 250 MB</span>
+        </button>
+
+        <p class="vault-status" id="vaultStatus" role="status" aria-live="polite"></p>
+
+        <section class="media-collection-section photos-collection" id="photosSection" aria-labelledby="photosHeading" hidden>
+          <div class="media-section-heading">
+            <div>
+              <p class="vault-section-label">STILL MOMENTS</p>
+              <h3 id="photosHeading">Photos <span id="photosCount">0</span></h3>
+            </div>
+            <span class="media-section-description">Images in your orbit</span>
+          </div>
+          <div class="photo-grid" id="photoGrid" aria-live="polite"></div>
+          <p class="media-empty-note" id="noPhotosState" hidden></p>
+        </section>
+
+        <section class="media-collection-section videos-collection" id="videosSection" aria-labelledby="videosHeading" hidden>
+          <div class="media-section-heading">
+            <div>
+              <p class="vault-section-label">MOTION MEMORIES</p>
+              <h3 id="videosHeading">Videos <span id="videosCount">0</span></h3>
+            </div>
+            <span class="media-section-description">Moving moments in your orbit</span>
+          </div>
+          <div class="photo-grid" id="videoGrid" aria-live="polite"></div>
+          <p class="media-empty-note" id="noVideosState" hidden></p>
+        </section>
+
+        <div class="vault-empty-state" id="emptyState" hidden>
+          <div class="empty-constellation" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          <p class="vault-section-label">A NEW CONSTELLATION STARTS HERE</p>
+          <h3>Your collection is waiting.</h3>
+          <p>Choose photos or videos and give your memories a place among the stars.</p>
+          <button class="vault-upload-button" id="emptyUploadButton" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5" /></svg>
+            Add your first memories
+          </button>
+        </div>
+
+        <p class="vault-footnote">Your photos and videos stay in this browser on this device. They are not uploaded to a server.</p>
+      </section>
+    </main>
+
+    <dialog class="guided-tour" id="guidedTour" aria-labelledby="tourTitle">
+      <section class="tour-welcome" id="tourWelcome" aria-labelledby="tourWelcomeTitle" hidden>
+        <div class="tour-welcome-content">
+          <div class="tour-welcome-topline">
+            <a class="welcome-brand" href="#gallery" aria-label="Orbit Memories home">
+              <span class="vault-brand-mark" aria-hidden="true">O</span>
+              <span>ORBIT <strong>MEMORIES</strong></span>
+            </a>
+            <button class="tour-close" id="closeWelcome" type="button" aria-label="Close welcome screen">×</button>
+          </div>
+
+          <div class="welcome-planet" aria-hidden="true">
+            <span class="welcome-planet-ring"></span>
+            <span class="welcome-planet-core"></span>
+            <span class="welcome-planet-star"></span>
+          </div>
+
+          <p class="welcome-eyebrow"><span></span> A LITTLE SPACE FOR WHAT MATTERS</p>
+          <h2 id="tourWelcomeTitle">Welcome to Orbit Memories,<br /><span id="tourWelcomeName">traveler</span>.</h2>
+          <p class="welcome-lead">Your own corner of the universe is ready.</p>
+          <div class="welcome-story">
+            <p>Here, the photos and videos you choose can live together in one calm, personal collection. Add a favorite moment, give it a little space, and come back to it whenever you like.</p>
+            <p>There is no rush to fill your orbit. Start with one picture or bring in a whole constellation. You can search by filename, change the order, open a photo for a closer look, play a video, and download another copy whenever you need one.</p>
+            <p>Your collection is saved in this browser on this device. This welcome is just the beginning; a short guided tour will point out each useful control so you can find your way around with confidence.</p>
+          </div>
+
+          <div class="welcome-tour-preview">
+            <p class="tour-kicker">ON YOUR QUICK TOUR</p>
+            <ol>
+              <li><span>01</span><strong>Bring photos and videos into orbit</strong></li>
+              <li><span>02</span><strong>Find videos in their own section</strong></li>
+              <li><span>03</span><strong>Open a photo, play a video, and download again</strong></li>
+              <li><span>04</span><strong>Find, sort, and manage your collection</strong></li>
+            </ol>
+          </div>
+
+          <p class="welcome-scroll-hint"><span aria-hidden="true">↓</span> SCROLL DOWN TO BEGIN</p>
+          <button class="tour-start" id="startTutorial" type="button">
+            <span>Start tutorial</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+          </button>
+          <p class="welcome-exit-note">You can close this welcome and open the tutorial later from the gallery.</p>
+        </div>
+      </section>
+      <div class="tour-shade" id="tourShade" aria-hidden="true"></div>
+      <div class="tour-spotlight" id="tourSpotlight" aria-hidden="true"></div>
+      <section class="tour-card" id="tourCard" aria-live="polite">
+        <div class="tour-card-topline">
+          <span class="tour-kicker">ORBIT MEMORIES / QUICK TOUR</span>
+          <button class="tour-close" id="closeTutorial" type="button" title="Close tutorial" aria-label="Close tutorial">×</button>
+        </div>
+        <div class="tour-progress-row">
+          <span id="tourStepCount">STEP 1 OF 7</span>
+          <div class="tour-progress-dots" id="tourProgressDots" aria-hidden="true"></div>
+        </div>
+        <h2 id="tourTitle">Welcome to Orbit Memories</h2>
+        <p class="tour-copy" id="tourCopy"></p>
+        <div class="tour-controls">
+          <button class="tour-skip" id="skipTutorial" type="button">Skip tutorial</button>
+          <div class="tour-navigation">
+            <button class="tour-back" id="previousTourStep" type="button">Back</button>
+            <button class="tour-next" id="nextTourStep" type="button">Next step</button>
+          </div>
+        </div>
+      </section>
+    </dialog>
+
+    <dialog class="photo-viewer" id="photoDialog" aria-labelledby="viewerTitle">
+      <div class="viewer-layout">
+        <button class="viewer-close" id="closeViewer" type="button" aria-label="Close photo preview">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+        </button>
+        <div class="viewer-image-wrap">
+          <img id="viewerImage" alt="" />
+          <video id="viewerVideo" controls playsinline preload="metadata" hidden></video>
+        </div>
+        <div class="viewer-details">
+          <div class="viewer-caption"><p class="vault-section-label">A MOMENT IN YOUR UNIVERSE</p><h2 id="viewerTitle"></h2><p id="viewerDate"></p></div>
+          <div class="viewer-actions">
+            <button class="viewer-action viewer-download" id="downloadPhoto" type="button" title="Download this memory again" aria-label="Download this memory again">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 17v3h14v-3" /></svg>
+              <span>Download again</span>
+            </button>
+            <button class="viewer-action viewer-delete" id="deletePhoto" type="button" title="Delete photo" aria-label="Delete photo">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16m-10 4v6m4-6v6M6 7l1 14h10l1-14M9 7V4h6v3" /></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>

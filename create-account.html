@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Create an Orbit Memories account for your personal photo archive."
+    />
+    <title>Orbit Memories | Create Account</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="auth-page signup-page">
+    <div class="page-transition-overlay" aria-hidden="true">
+      <div class="transition-glow"></div>
+    </div>
+
+    <div class="page-shell">
+      <div class="bg-orb orb-1" aria-hidden="true"></div>
+      <div class="bg-orb orb-2" aria-hidden="true"></div>
+      <div id="particles" aria-hidden="true"></div>
+
+      <main class="auth-card" aria-label="Create account panel">
+        <div class="card-glow" aria-hidden="true"></div>
+
+        <a href="index.html" class="back-button" aria-label="Back to login">← Back</a>
+
+        <div class="brand-wrap" aria-label="Orbit Memories">
+          <div class="brand-lockup">
+            <div class="brand-mark">O</div>
+            <span class="brand-wordmark">Orbit <strong>Memories</strong></span>
+          </div>
+        </div>
+
+        <div class="card-header">
+          <span class="step-pill">Join now</span>
+          <h1>Create Account</h1>
+        </div>
+
+        <p class="card-copy">
+          Build your account and access your dashboard in seconds.
+        </p>
+
+        <form id="signupForm" novalidate>
+          <div class="field-wrap" id="signupNameWrap">
+            <label for="signupName">Full name</label>
+            <input
+              id="signupName"
+              name="signupName"
+              type="text"
+              placeholder="Your full name"
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="field-wrap" id="signupEmailWrap">
+            <label for="signupEmail">Email</label>
+            <input
+              id="signupEmail"
+              name="signupEmail"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="field-wrap" id="signupPasswordWrap">
+            <label for="signupPassword">Password</label>
+            <div class="password-input-wrap">
+              <input
+                id="signupPassword"
+                name="signupPassword"
+                type="password"
+                placeholder="Create a strong password"
+                autocomplete="new-password"
+              />
+              <button type="button" class="password-toggle" data-password-toggle="signup" aria-label="Show password" aria-pressed="false">
+                <span class="toggle-icon">Show</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="field-wrap" id="signupConfirmWrap">
+            <label for="signupConfirm">Confirm password</label>
+            <div class="password-input-wrap">
+              <input
+                id="signupConfirm"
+                name="signupConfirm"
+                type="password"
+                placeholder="Confirm your password"
+                autocomplete="new-password"
+              />
+              <button type="button" class="password-toggle" data-password-toggle="confirm" aria-label="Show password" aria-pressed="false">
+                <span class="toggle-icon">Show</span>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="auth-btn" id="signupButton">
+            <span class="btn-text">Create Account</span>
+            <span class="btn-loader" aria-hidden="true"></span>
+          </button>
+
+          <p id="signupMessage" class="form-message" aria-live="polite"></p>
+
+          <p class="tip-text">
+            Already have an account?
+            <a href="index.html" class="inline-link">Login</a>
+          </p>
+        </form>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
